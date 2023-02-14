@@ -1,22 +1,26 @@
 ---
 ## Front matter
-title: "Шаблон отчёта по лабораторной работе"
-subtitle: "Простейший вариант"
-author: "Дмитрий Сергеевич Кулябов"
+title: "РОССИЙСКИЙ УНИВЕРСИТЕТ ДРУЖБЫ НАРОДОВ"
+subtitle:
+- Факультет физико-математических и естественных наук.
+
+- Математическое моделирование.
+
+- ОТЧЕТ по лабораторной работе № 1.
+
+- НКНбд 01-20.
+
+author: "Габриэль Тьерри"
+date:  "МОСКВА 2023 г."
 
 ## Generic otions
 lang: ru-RU
-toc-title: "Содержание"
 
 ## Bibliography
 bibliography: bib/cite.bib
 csl: pandoc/csl/gost-r-7-0-5-2008-numeric.csl
 
 ## Pdf output format
-toc: true # Table of contents
-toc-depth: 2
-lof: true # List of figures
-lot: true # List of tables
 fontsize: 12pt
 linestretch: 1.5
 papersize: a4
@@ -51,69 +55,77 @@ biblatexoptions:
   - language=auto
   - autolang=other*
   - citestyle=gost-numeric
-## Pandoc-crossref LaTeX customization
-figureTitle: "Рис."
-tableTitle: "Таблица"
-listingTitle: "Листинг"
-lofTitle: "Список иллюстраций"
-lotTitle: "Список таблиц"
-lolTitle: "Листинги"
 ## Misc options
 indent: true
 header-includes:
+  - \usepackage[T1]{fontenc}
   - \usepackage{indentfirst}
   - \usepackage{float} # keep figures where there are in the text
   - \floatplacement{figure}{H} # keep figures where there are in the text
 ---
 
-# Цель работы
+# Цель работы :
 
-Здесь приводится формулировка цели лабораторной работы. Формулировки
-цели для каждой лабораторной работы приведены в методических
-указаниях.
+- Создайте или подтвердите, что у вас есть учетная запись на Github.
 
-Цель данного шаблона --- максимально упростить подготовку отчётов по
-лабораторным работам.  Модифицируя данный шаблон, студенты смогут без
-труда подготовить отчёт по лабораторным работам, а также познакомиться
-с основными возможностями разметки Markdown.
+- Настройте git, pandoc, chocolatey, TexLive, Julia, Openmodelica на своем компьютере
+  Составьте отчет
 
-# Задание
+# Ход работы:
 
-Здесь приводится описание задания в соответствии с рекомендациями
-методического пособия и выданным вариантом.
+Поскольку у меня уже есть учетная запись, заходим по [ссылке](https://github.com/tgabriel22) и попадаем в наш аккаунт github. .( рисунок 1)
 
-# Теоретическое введение
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture001.PNG "Рисунок1")
 
-Здесь описываются теоретические аспекты, связанные с выполнением работы.
+Cоздадим локальный репозиторий
+( рисунок 2)
 
-Например, в табл. @tbl:std-dir приведено краткое описание стандартных каталогов Unix.
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture01.PNG "Рисунок2")
 
-: Описание некоторых каталогов файловой системы GNU Linux {#tbl:std-dir}
+Чтобы иметь возможность клонировать существующий репозиторий git по SSH-ссылке, нам необходимо установить службу SSH-Agent для Windows.
+A также настроим пару ключей SSH для доступа к удаленному провайдеру Git. ( рисунок 3,4)
 
-| Имя каталога | Описание каталога                                                                                                          |
-|--------------|----------------------------------------------------------------------------------------------------------------------------|
-| `/`          | Корневая директория, содержащая всю файловую                                                                               |
-| `/bin `      | Основные системные утилиты, необходимые как в однопользовательском режиме, так и при обычной работе всем пользователям     |
-| `/etc`       | Общесистемные конфигурационные файлы и файлы конфигурации установленных программ                                           |
-| `/home`      | Содержит домашние директории пользователей, которые, в свою очередь, содержат персональные настройки и данные пользователя |
-| `/media`     | Точки монтирования для сменных носителей                                                                                   |
-| `/root`      | Домашняя директория пользователя  `root`                                                                                   |
-| `/tmp`       | Временные файлы                                                                                                            |
-| `/usr`       | Вторичная иерархия для данных пользователя                                                                                 |
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture1.PNG "Рисунок3")
 
-Более подробно об Unix см. в [@gnu-doc:bash;@newham:2005:bash;@zarrelli:2017:bash;@robbins:2013:bash;@tannenbaum:arch-pc:ru;@tannenbaum:modern-os:ru].
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture2.PNG "Рисунок4")
 
-# Выполнение лабораторной работы
+В GitLab, в разделе SSH Keys пользовательских настроек, мы добавляем открытый ключ SSH.( рисунок 5)
 
-Описываются проведённые действия, в качестве иллюстрации даётся ссылка на иллюстрацию (рис. @fig:001).
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture3.PNG "Рисунок5")
 
-![Название рисунка](image/placeimg_800_600_tech.jpg){#fig:001 width=70%}
+Мы создаем новый репозиторий с именем mathmod в нашем Github, используя существующий шаблон, и клонируем этот репозиторий в наш локальный, используя ssh-ссылку. ( рисунок 6, 7)
 
-# Выводы
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture4.PNG "Рисунок6")
 
-Здесь кратко описываются итоги проделанной работы.
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture5.PNG "Рисунок7")
 
-# Список литературы{.unnumbered}
+в папке mathmod мы создаем общий каталог лабораторных работ с именем Labs и подпапку с именем Lab1. ( рисунок 8)
 
-::: {#refs}
-:::
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture6.PNG "Рисунок8")
+
+Добавляем изменения, внесенные в локальном репозитории, на сервер github. ( рисунок 9, 10)
+
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture7.PNG "Рисунок9")
+
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Capture10.PNG "Рисунок10")
+
+Настраиваем git, pandoc, chocolatey, TexLive, Julia, Openmodelica
+Добавляем изменения, внесенные в локальном репозитории, на сервер github. ( рисунок 11, 12, 13, 14, 15, 16)
+
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Choco.PNG "Рисунок11")
+
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Julia.PNG "Рисунок12")
+
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Make.PNG "Рисунок13")
+
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/Pandoc.PNG "Рисунок14")
+
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/TexLive.PNG "Рисунок15")
+
+![](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab1/report/report/image/openmodelica.PNG "Рисунок16")
+
+# Вывод:
+
+- изучил идеологию и применение средств контроля версий.
+
+- и как настроил git, pandoc, chocolatey, TexLive, Julia, Openmodelica
