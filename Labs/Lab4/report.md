@@ -192,6 +192,8 @@ begin
     T = [t0, tmax]
     prob = ODEProblem(F!, U0, T)
 end
+!(https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab3/report/report/image/Part1.7.PNG)
+
 
 sol = solve(prob, saveat = 0.05)
 
