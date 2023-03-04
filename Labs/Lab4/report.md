@@ -192,9 +192,11 @@ begin
     T = [t0, tmax]
     prob = ODEProblem(F!, U0, T)
 end
-!(https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab3/report/report/image/Part1.7.PNG)
+```
 
+![sol](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab4/report/report/image/Capture1.PNG){#fig:001 width=70%}
 
+```julia
 sol = solve(prob, saveat = 0.05)
 
 begin
@@ -235,20 +237,19 @@ end
 
 ```
 
+![Фазовый портрет №1(Julia)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab4/report/report/image/Capture2.PNG){#fig:001 width=70%}
+
 проделаем те же самые действия в Openmodelica
 
 ```modelica
-model Oscilliator
-  Real x, y, t;
-initital equation
-  x = 2;
-  y = -0.2;
-  t = 0;
+model Lab4
+Real x(start=2);
+Real y(start=-0.2);
+parameter Real w =14.4;
 equation
-  der(t) = 1;
-  der(x) = y;
-  der(y) = -14.4*x;
-end
+der(x) = y;
+der(y) = -w*x;
+end Lab4;
 ```
 
 Получим фазовый портрет
@@ -304,7 +305,11 @@ begin
     T = [t0, tmax]
     prob = ODEProblem(F!, U0, T)
 end
+```
 
+![Sol](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab4/report/report/image/Capture2.1.PNG){#fig:001 width=70%}
+
+```julia
 sol = solve(prob, saveat = 0.05)
 
 begin
@@ -345,20 +350,20 @@ end
 
 ```
 
+![Фазовый портрет №2(Julia)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab4/report/report/image/Capture2.2.PNG){#fig:001 width=70%}
+
 проделаем те же самые действия в Openmodelica
 
 ```modelica
-model Oscilliator
-  Real x, y, t;
-initital equation
-  x = 2;
-  y = -0.2;
-  t = 0;
+model Lab4Pt2
+Real x(start=2);
+Real y(start=-0.2);
+parameter Real g = 17;
+parameter Real w =1;
 equation
-  der(t) = 1;
-  der(x) = y;
-  der(y) = -17*x - y;
-end
+der(x) = y;
+der(y) = -g*y-w*x;
+end Lab4Pt2;
 ```
 
 Получим фазовый портрет
@@ -419,6 +424,11 @@ begin
     T = [t0, tmax]
     prob = ODEProblem(F!, U0, T)
 end
+```
+
+![Sol](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab4/report/report/image/Capture3.1.PNG){#fig:001 width=70%}
+
+```julia
 
 sol = solve(prob, saveat = 0.05)
 
@@ -459,20 +469,20 @@ begin
 end
 ```
 
+![Фазовый портрет №3(Julia)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab4/report/report/image/Capture3.2.PNG){#fig:001 width=70%}
+
 проделаем те же самые действия в Openmodelica
 
 ```modelica
-model Oscilliator
-  Real x, y, t;
-initital equation
-  x = 2;
-  y = -0.2;
-  t = 0;
+model Lab4Pt3
+Real x(start=2);
+Real y(start=-0.2);
+parameter Real g = 15;
+parameter Real w = 1;
 equation
-  der(t) = 1;
-  der(x) = y;
-  der(y) = -15*x - y + 0.7*sin(3*t);
-end
+der(x) = y;
+der(y) = -g*y-w*x + 0.7*sin(3*time);
+end Lab4Pt3;
 ```
 
 Получим фазовый портрет
