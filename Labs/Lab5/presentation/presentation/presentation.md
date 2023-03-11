@@ -140,8 +140,6 @@ begin
 end
 ```
 
-### График
-
 ![Sol (Julia)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab5/report/report/image/Capture6.PNG){#fig:001 width=90%}
 
 ```julia
@@ -152,7 +150,7 @@ sol = solve(prob, saveat = 0.05)
 
 ### График
 
-![Изменение числа хищников и хищников(JULIA)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab5/report/report/image/Capture5.PNG){#fig:002 width=90%}
+![Изменение числа хищников и жертва(JULIA)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab5/report/report/image/Capture5.PNG){#fig:002 width=90%}
 
 ```julia
 
@@ -198,7 +196,7 @@ end LAB5;
 
 ### График
 
-![Изменение числа хищников и хищников(OM)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab5/report/report/image/Capture2.PNG){#fig:003 width=90%}
+![Изменение числа хищников и жертва(OM)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab5/report/report/image/Capture2.PNG){#fig:003 width=90%}
 
 # Выводы
 
