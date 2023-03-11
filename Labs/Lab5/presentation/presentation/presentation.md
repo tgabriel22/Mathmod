@@ -1,210 +1,210 @@
 ---
 ## Front matter
-lang: ru-RU
-title: Структура научной презентации
-subtitle: Простейший шаблон
+title: Лабораторная работа №5
+subtitle: Модель Лотки - Вольтерры
 author:
-  - Кулябов Д. С.
+  - Габриэль Тьерри
 institute:
   - Российский университет дружбы народов, Москва, Россия
-  - Объединённый институт ядерных исследований, Дубна, Россия
-date: 01 января 1970
+date: 11 марта 2023
 
-## i18n babel
+## Generic otions
+lang: ru-RU
+toc-title: "Содержание"
+
+## Bibliography
+bibliography: bib/cite.bib
+csl: pandoc/csl/gost-r-7-0-5-2008-numeric.csl
+
+## Pdf output format
+toc: true # Table of contents
+toc-depth: 2
+lof: true # List of figures
+lot: true # List of tables
+fontsize: 12pt
+linestretch: 1.5
+papersize: a4
+documentclass: scrreprt
+## I18n polyglossia
+polyglossia-lang:
+  name: russian
+  options:
+	- spelling=modern
+	- babelshorthands=true
+polyglossia-otherlangs:
+  name: english
+## I18n babel
 babel-lang: russian
 babel-otherlangs: english
-
-## Formatting pdf
-toc: false
-toc-title: Содержание
-slide_level: 2
-aspectratio: 169
-section-titles: true
-theme: metropolis
+## Fonts
+mainfont: PT Serif
+romanfont: PT Serif
+sansfont: PT Sans
+monofont: PT Mono
+mainfontoptions: Ligatures=TeX
+romanfontoptions: Ligatures=TeX
+sansfontoptions: Ligatures=TeX,Scale=MatchLowercase
+monofontoptions: Scale=MatchLowercase,Scale=0.9
+## Biblatex
+biblatex: true
+biblio-style: "gost-numeric"
+biblatexoptions:
+  - parentracker=true
+  - backend=biber
+  - hyperref=auto
+  - language=auto
+  - autolang=other*
+  - citestyle=gost-numeric
+## Pandoc-crossref LaTeX customization
+figureTitle: "Рис."
+tableTitle: "Таблица"
+listingTitle: "Листинг"
+lofTitle: "Список иллюстраций"
+lotTitle: "Список таблиц"
+lolTitle: "Листинги"
+## Misc options
+indent: true
 header-includes:
- - \metroset{progressbar=frametitle,sectionpage=progressbar,numbering=fraction}
- - '\makeatletter'
- - '\beamer@ignorenonframefalse'
- - '\makeatother'
+  - \usepackage{indentfirst}
+  - \usepackage{float} # keep figures where there are in the text
+  - \floatplacement{figure}{H} # keep figures where there are in the text
+  - \usepackage{amsmath}
 ---
-
-# Информация
 
 ## Докладчик
 
-:::::::::::::: {.columns align=center}
-::: {.column width="70%"}
+- Габриэль Тьерри
+- студент НКНбд-01-20
+- Факультет физико-математических и естественных наук
+- Российский университет дружбы народов
+- 1032204249
 
-  * Кулябов Дмитрий Сергеевич
-  * д.ф.-м.н., профессор
-  * профессор кафедры прикладной информатики и теории вероятностей
-  * Российский университет дружбы народов
-  * [kulyabov-ds@rudn.ru](mailto:kulyabov-ds@rudn.ru)
-  * <https://yamadharma.github.io/ru/>
+# Цель работы
 
-:::
-::: {.column width="30%"}
+Реализовать на языках программирования Julia и Openmodelica модель Лотки-Вольтерры, также известную как моедль взаимодействия "хищник-жертва".
 
-![](./image/kulyabov.jpg)
+# Задание
 
-:::
-::::::::::::::
+Для модели «хищник-жертва»:
 
-# Вводная часть
+$$
+ \begin{cases}
+   \frac{dx}{dt} = -0.47*x(t) + 0.021*x(t)*y(t)
+   \\
+   \frac{dy}{dt} = 0.57*y(t) - 0.044*x(t)*y(t)
+ \end{cases}
+$$
 
-## Актуальность
-
-- Важно донести результаты своих исследований до окружающих
-- Научная презентация --- рабочий инструмент исследователя
-- Необходимо создавать презентацию быстро
-- Желательна минимизация усилий для создания презентации
-
-## Объект и предмет исследования
-
-- Презентация как текст
-- Программное обеспечение для создания презентаций
-- Входные и выходные форматы презентаций
-
-## Цели и задачи
-
-- Создать шаблон презентации в Markdown
-- Описать алгоритм создания выходных форматов презентаций
+Постройте график зависимости численности хищников от численности жертв, а также графики изменения численности хищников и численности жертв при следующих начальных условиях: $$ x_0 = 12, y0 = 37 $$ Найдите стационарное состояние системы.
 
 ## Материалы и методы
 
-- Процессор `pandoc` для входного формата Markdown
-- Результирующие форматы
-	- `pdf`
-	- `html`
-- Автоматизация процесса создания: `Makefile`
+- Язык программирования Julia
+- Язык программирования Modelica
+- Пакеты Plots, DifferentialEquations
 
-# Создание презентации
+# Ход работы
 
-## Процессор `pandoc`
+## Решение на языке Julia
 
-- Pandoc: преобразователь текстовых файлов
-- Сайт: <https://pandoc.org/>
-- Репозиторий: <https://github.com/jgm/pandoc>
+1. На первом этапе смоедлировали задачу, используя язык программирования Julia. Получили следующий код:
 
-## Формат `pdf`
+```julia
+begin
+    import Pkg
+    Pkg.add("LaTeXStrings")
+    Pkg.activate()
+    using DifferentialEquations
+    using LaTeXStrings
+    import Plots
+end
 
-- Использование LaTeX
-- Пакет для презентации: [beamer](https://ctan.org/pkg/beamer)
-- Тема оформления: `metropolis`
+begin
+    X0 = 12.0
+    Y0 = 37.0
+    a = 0.47
+    b = 0.021
+    c = 0.57
+    d = 0.044
+end
 
-## Код для формата `pdf`
+function F!(du, u, p, t)
+    du[1] = -a*u[1]+b*u[1]*u[2]
+    du[2] = c*u[2]-d*u[1]*u[2]
+end
 
-```yaml
-slide_level: 2
-aspectratio: 169
-section-titles: true
-theme: metropolis
+begin
+    U0 = [X0, Y0]
+    T = [0.0, 100.0]
+    prob = ODEProblem(F!, U0, T)
+end
 ```
 
-## Формат `html`
+### График
 
-- Используется фреймворк [reveal.js](https://revealjs.com/)
-- Используется [тема](https://revealjs.com/themes/) `beige`
+![Sol (Julia)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab5/report/report/image/Capture6.PNG){#fig:001 width=90%}
 
-## Код для формата `html`
-
-- Тема задаётся в файле `Makefile`
-
-```make
-REVEALJS_THEME = beige 
+```julia
+sol = solve(prob, saveat = 0.05)
 ```
-# Результаты
 
-## Получающиеся форматы
+В результате работы программы получили следующие результат.
 
-- Полученный `pdf`-файл можно демонстрировать в любой программе просмотра `pdf`
-- Полученный `html`-файл содержит в себе все ресурсы: изображения, css, скрипты
+### График
 
-# Элементы презентации
+![Изменение числа хищников и хищников(JULIA)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab5/report/report/image/Capture5.PNG){#fig:002 width=90%}
 
-## Актуальность
+```julia
 
-- Даёт понять, о чём пойдёт речь
-- Следует широко и кратко описать проблему
-- Мотивировать свое исследование
-- Сформулировать цели и задачи
-- Возможна формулировка ожидаемых результатов
+ Plots.plot(sol)
 
-## Цели и задачи
+ # Найдем стационарное состояние системы в точке x
+begin
+    x = c/d
+end
 
-- Не формулируйте более 1--2 целей исследования
+# Найдем стационарное состояние системы в точке y
+begin
+    y = a/b
+end
+```
 
-## Материалы и методы
+## Решение на языке Openmodelica
 
-- Представляйте данные качественно
-- Количественно, только если крайне необходимо
-- Излишние детали не нужны
+2. На втором этапе смоделировали задачу в среде моделирования Openmodelica. Получили следующие код:
 
-## Содержание исследования
+```openmodelica
+model LAB5
+constant Real a = 0.47;    //значение a
+constant Real b = 0.021;  //значение b
+constant Real c = 0.57;  //значение c
+constant Real d = 0.044;//значение d
 
-- Предлагаемое решение задач исследования с обоснованием
-- Основные этапы работы
+Real x;//хищники
+Real y;//жертвы
 
-## Результаты
+initial equation
+x=12;//начальное количество хищников
+y=37;//начальное количество жертв
 
-- Не нужны все результаты
-- Необходимы логические связки между слайдами
-- Необходимо показать понимание материала
+equation
+der(x)=a*x-b*x*y;//уравнение системы
+der(y)=-c*y+d*x*y;//уравнение системы
 
+end LAB5;
+```
 
-## Итоговый слайд
+В результате работы программы получили следующие результат.
 
-- Запоминается последняя фраза. © Штирлиц
-- Главное сообщение, которое вы хотите донести до слушателей
-- Избегайте использовать последний слайд вида *Спасибо за внимание*
+### График
 
-# Рекомендации
+![Изменение числа хищников и хищников(OM)](https://raw.githubusercontent.com/tgabriel22/mathmod/master/Labs/Lab5/report/report/image/Capture2.PNG){#fig:003 width=90%}
 
-## Принцип 10/20/30
+# Выводы
 
-  - 10 слайдов
-  - 20 минут на доклад
-  - 30 кегль шрифта
+В ходе выполнения лабораторной работы я научился строить график зависимости численности хищников от численности жертв, а также графики изменения численности хищников и численности жертв при заданных начальных условиях. Нашел стационарное состояние системы.
 
-## Связь слайдов
+# Список литературы{.unnumbered}
 
-::: incremental
-
-- Один слайд --- одна мысль
-- Нельзя ссылаться на объекты, находящиеся на предыдущих слайдах (например, на формулы)
-- Каждый слайд должен иметь заголовок
-
+::: {#refs}
 :::
-
-## Количество сущностей
-
-::: incremental
-
-- Человек может одновременно помнить $7 \pm 2$ элемента
-- При размещении информации на слайде старайтесь чтобы в сумме слайд содержал не более 5 элементов
-- Можно группировать элементы так, чтобы визуально было не более 5 групп
-
-:::
-
-## Общие рекомендации
-
-::: incremental
-
-- На слайд выносится та информация, которая без зрительной опоры воспринимается хуже
-- Слайды должны дополнять или обобщать содержание выступления или его частей, а не дублировать его
-- Информация на слайдах должна быть изложена кратко, чётко и хорошо структурирована
-- Слайд не должен быть перегружен графическими изображениями и текстом
-- Не злоупотребляйте анимацией и переходами
-
-:::
-
-## Представление данных
-
-::: incremental
-
-- Лучше представить в виде схемы
-- Менее оптимально представить в виде рисунка, графика, таблицы
-- Текст используется, если все предыдущие способы отображения информации не подошли
-
-:::
-
